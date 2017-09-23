@@ -5,23 +5,20 @@
     android:weightSum="1"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button" />
-
     <ProgressBar
         android:id="@+id/progressBar1"
-        style="?android:attr/progressBarStyleHorizontal"
+        style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.04" />
+        android:layout_height="30dp"
+        android:layout_margin="10dp" />
 
     <TextView
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:id="@+id/textView1"
-        android:layout_width="match_parent"
+        android:text="TextView"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_width="wrap_content"
+        android:layout_margin="10dp"
+        />
+
 </LinearLayout>

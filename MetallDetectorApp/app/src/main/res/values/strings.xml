@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MetallDetectorApp</string>
+    <string name="textView2">HalloBallo</string>
+    <string name="action_settings">GruxaldApp</string>
 </resources>
