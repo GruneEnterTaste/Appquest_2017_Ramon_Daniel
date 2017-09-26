@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:background="@color/dark_brown">
+        android:background="@color/dark_blue">
         <activity android:name=".metallDetector">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
