@@ -19,6 +19,16 @@
         </activity>
     </application>
 
+    <!-- give the rights for the camera app -->v
+
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
+
+    <!-- give rights for the application private folder for android before API Level 18 This files get delted, when the user deinstalls the app -->
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+
 </manifest>
 
     <!--Kommentar mit CTRL + / -->
