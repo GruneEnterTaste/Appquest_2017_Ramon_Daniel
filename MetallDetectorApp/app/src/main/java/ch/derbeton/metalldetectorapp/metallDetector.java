@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.graphics.Color;
 
 public class metallDetector extends AppCompatActivity implements SensorEventListener {
 
@@ -68,7 +69,21 @@ public class metallDetector extends AppCompatActivity implements SensorEventList
         progressBar.setProgress((int) betrag);
     }
 
-    // main part of the camera app
+    /* not working so far --> change the color
+
+    private Bitmap applyFilter(Bitmap bitmap) {
+
+        int[] pixels = new int[bitmap.getHeight()*bitmap.getWidth()];
+        bitmap.getPixels(pixels, 0, bitmap.getWidth(), 0, 0, bitmap.getWidth(), bitmap.getHeight());
+        for (int i=0; i<bitmap.getWidth()*5; i++)
+            pixels[i] = Color.BLUE;
+        bitmap.setPixels(pixels, 0, bitmap.getWidth(), 0, 0, bitmap.getWidth(), bitmap.getHeight());
+
+        return Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        } */
+
+    // main part of the camera apps
+
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == AppCompatActivity.RESULT_OK) {
@@ -76,24 +91,5 @@ public class metallDetector extends AppCompatActivity implements SensorEventList
             imageView.setImageBitmap(bitmap);
         }
     }
-
-    /* not working so far --> change the color
-
-    private Bitmap applyfilter(Bitmap bitmap) {
-        int width = bitmap.getWidth();
-        int height = bitmap.getHeight();
-        int[] data = new int[width * height];
-
-        bitmap.getPixels(data, 0, width, 0, 0, width, height);
-
-        for (int i = 0; i < bitmap.getWidth(); i++) {
-            for (int j = 0; j < bitmap.getHeight(); j++) {
-                bitmap.setRGB(255, 255, 255);
-            }
-
-            return bitmap;
-        }
-
-    } */
 
 }
