@@ -69,26 +69,36 @@ public class metallDetector extends AppCompatActivity implements SensorEventList
         progressBar.setProgress((int) betrag);
     }
 
-    /* not working so far --> change the color
-
-    private Bitmap applyFilter(Bitmap bitmap) {
-
-        int[] pixels = new int[bitmap.getHeight()*bitmap.getWidth()];
-        bitmap.getPixels(pixels, 0, bitmap.getWidth(), 0, 0, bitmap.getWidth(), bitmap.getHeight());
-        for (int i=0; i<bitmap.getWidth()*5; i++)
-            pixels[i] = Color.BLUE;
-        bitmap.setPixels(pixels, 0, bitmap.getWidth(), 0, 0, bitmap.getWidth(), bitmap.getHeight());
-
-        return Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-        } */
-
     // main part of the camera apps
 
+    private Bitmap applyFilter(Bitmap bitmap) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        int[] data = new int[width * height];
+
+        bitmap.getPixels(data, 0, width, 0, 0, width, height);
+
+        for (int x = 0; x < bitmap.getWidth(); x++) {
+            for (int y = 0; y < bitmap.getHeight(); y++) {
+
+                // multiple every pixel with a red one and the amount of green and blue
+
+                int c = bitmap.getPixel(x, y);
+
+                int G = (c & 0xff00) >> 8;
+                int B = c & 0xff;
+
+                bitmap.setPixel(x, y, Color.argb(1, 255, G, B));
+            }
+        }
+        return bitmap;
+    }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == AppCompatActivity.RESULT_OK) {
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(bitmap);
+            Bitmap new_bitmap = applyFilter(bitmap);
+            imageView.setImageBitmap(new_bitmap);
         }
     }
 
