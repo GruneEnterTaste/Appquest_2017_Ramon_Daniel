@@ -32,11 +32,18 @@ public class metallDetector extends AppCompatActivity implements SensorEventList
     private ImageView imageView;
 
 
-    // MENÜÜÜÜÜÜÜÜÜÜÜ
+    // Menu Start
+    // Für die ganzen Einträge werden weitere Activities erstellt
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem menuItem = menu.add("Logbuch Scanner");
-        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+        MenuItem menuItem_start = menu.add("Home");
+        MenuItem menuItem_logbuch_scanner = menu.add("Logbuch Scanner");
+        MenuItem menuItem_dechiffrierer = menu.add("Dechiffrierer");
+        MenuItem menuItem_memory = menu.add("Memory");
+        MenuItem menuItem_schatzkarte = menu.add("Schatzkarte");
+        MenuItem menuItem_pixelmaler = menu.add("Pixelmaler");
+
+        menuItem_logbuch_scanner.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
 
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -45,14 +52,30 @@ public class metallDetector extends AppCompatActivity implements SensorEventList
                 startActivityForResult(intent_barcode, SCAN_QR_CODE_REQUEST_CODE);
                 return false;
             }
-        });
+        }
+
+        );
+
+        // Verlinken Dechiffrierer
+
+        menuItem_dechiffrierer.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+
+         @Override
+         public boolean onMenuItemClick(MenuItem item) {
+             Intent intent = new Intent(metallDetector.this, Dechiffrierer.class);
+             startActivity(intent);
+             return false;
+         }
+        }
+
+        );
 
         return super.onCreateOptionsMenu(menu);
     }
 
-
-
     //Menu Ende
+
+
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {

@@ -2,14 +2,26 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ch.derbeton.metalldetectorapp">
 
+    <!-- give the rights for the camera app -->
+    v
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <!-- give rights for the application private folder for android before API Level 18 This files get delted, when the user deinstalls the app -->
+
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+
     <application
         android:allowBackup="true"
+        android:background="@color/dark_blue"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:background="@color/dark_blue">
+        android:theme="@style/AppTheme">
         <activity android:name=".metallDetector">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,18 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Dechiffrierer"></activity>
     </application>
 
-    <!-- give the rights for the camera app -->v
-
-    <uses-feature android:name="android.hardware.camera"
-        android:required="true" />
-
-    <!-- give rights for the application private folder for android before API Level 18 This files get delted, when the user deinstalls the app -->
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
-
-</manifest>
-
-    <!--Kommentar mit CTRL + / -->
+</manifest> <!-- Kommentar mit CTRL + / -->
