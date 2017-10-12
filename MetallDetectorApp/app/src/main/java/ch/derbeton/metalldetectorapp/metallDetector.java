@@ -31,8 +31,9 @@ public class metallDetector extends AppCompatActivity implements SensorEventList
 
     private ImageView imageView;
 
-
+//---------------------------------------------------------------------------------------------------------------------
     // Menu Start
+//---------------------------------------------------------------------------------------------------------------------
     // Für die ganzen Einträge werden weitere Activities erstellt
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -70,11 +71,25 @@ public class metallDetector extends AppCompatActivity implements SensorEventList
 
         );
 
+        // Verlinken Start
+
+        menuItem_start.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent intent = new Intent(metallDetector.this, metallDetector.class);
+                startActivity(intent);
+                return false;
+            }
+        }
+
+        );
+
         return super.onCreateOptionsMenu(menu);
     }
-
+//---------------------------------------------------------------------------------------------------------------------
     //Menu Ende
-
+//---------------------------------------------------------------------------------------------------------------------
 
 
     @Override
