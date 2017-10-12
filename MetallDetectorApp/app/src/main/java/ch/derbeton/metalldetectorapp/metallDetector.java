@@ -9,6 +9,8 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,7 +26,33 @@ public class metallDetector extends AppCompatActivity implements SensorEventList
     private ProgressBar progressBar;
     // for the camera app
     private static final int CAMERA_REQUEST = 1888;
+    // for the Logbuch app
+    private static final int SCAN_QR_CODE_REQUEST_CODE = 0;
+
     private ImageView imageView;
+
+
+    // MENÜÜÜÜÜÜÜÜÜÜÜ
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuItem menuItem = menu.add("Logbuch Scanner");
+        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent intent_barcode = new Intent("com.google.zxing.client.android.SCAN");
+                intent_barcode.putExtra("SCAN_MODE", "QR_CODE_MODE");
+                startActivityForResult(intent_barcode, SCAN_QR_CODE_REQUEST_CODE);
+                return false;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+
+    //Menu Ende
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
