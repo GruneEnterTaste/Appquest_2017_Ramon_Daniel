@@ -83,15 +83,34 @@ public class metallDetector extends AppCompatActivity implements SensorEventList
 
                 // multiple every pixel with a red one and the amount of green and blue
 
-                int c = bitmap.getPixel(x, y);
+                int index = y*width+x;
 
-                int G = (c & 0xff00) >> 8;
-                int B = c & 0xff;
+                int p = data[index];
 
-                bitmap.setPixel(x, y, Color.argb(1, 255, G, B));
+                //get alpha
+                int a = 255;
+
+                //get red
+                int r = (p>>16) & 0xff;
+
+                //get green
+                int g = (p>>8) & 0xff;
+
+                //get blue
+                int b = (p & 0xff);
+
+
+                p = a<<24 | Color.red(r<<16) | (g<<8)*0 | b*0;
+
+
+                //fill in the color into the data array
+
+                data[index] = p;
             }
         }
-        return bitmap;
+        //return the new Bitmap
+
+        return Bitmap.createBitmap(data, width, height, Bitmap.Config.ARGB_8888);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
