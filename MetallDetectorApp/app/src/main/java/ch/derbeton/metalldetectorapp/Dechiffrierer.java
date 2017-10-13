@@ -101,7 +101,19 @@ public class Dechiffrierer extends AppCompatActivity {
         });
 
 
+    // Make the Log Button to show the input and Submit field
 
+        /*final Button button = (Button) findViewById(R.id.logVisible);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                View logSend = findViewById(R.id.logSend);
+                logSend.setVisibility(View.VISIBLE);
+
+                View textInput = findViewById(R.id.textInput);
+                textInput.setVisibility(View.VISIBLE);
+            }
+        });*/
 
 
     }
@@ -123,7 +135,7 @@ public class Dechiffrierer extends AppCompatActivity {
                 int p = data[index];
 
                 //get alpha
-                int a = 255;
+                int a = (p>>24) & 0xff;
 
                 //get red
                 int r = (p>>16) & 0xff;
@@ -135,7 +147,7 @@ public class Dechiffrierer extends AppCompatActivity {
                 int b = (p & 0xff);
 
 
-                p = a<<24 | Color.red(r<<16) | (g<<8)*0 | b*0;
+                p = (a<<24) | Color.red((r<<16) | (g<<8) | b);
 
 
                 //fill in the color into the data array

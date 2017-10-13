@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.graphics.Color;
+import org.json.JSONObject;
 
 public class metallDetector extends AppCompatActivity implements SensorEventListener {
 
@@ -28,8 +29,6 @@ public class metallDetector extends AppCompatActivity implements SensorEventList
     private static final int CAMERA_REQUEST = 1888;
     // for the Logbuch app
     private static final int SCAN_QR_CODE_REQUEST_CODE = 0;
-
-    private ImageView imageView;
 
 //---------------------------------------------------------------------------------------------------------------------
     // Menu Start
@@ -91,6 +90,18 @@ public class metallDetector extends AppCompatActivity implements SensorEventList
     //Menu Ende
 //---------------------------------------------------------------------------------------------------------------------
 
+    // Scannvorgang in String speichern --> Barcodescanner
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (requestCode == SCAN_QR_CODE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                String logMsg = intent.getStringExtra("SCAN_RESULT");
+                log(logMsg);
+            }
+        }
+    }
+
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
@@ -104,18 +115,6 @@ public class metallDetector extends AppCompatActivity implements SensorEventList
         setContentView(R.layout.activity_metall_detector_layout);
         textView = (TextView) findViewById(R.id.textView1);
         progressBar = (ProgressBar) findViewById(R.id.progressBar1);
-        //for the camera app
-        this.imageView = (ImageView) this.findViewById(R.id.imageView1);
-        Button photoButton = (Button) this.findViewById(R.id.button1);
-        photoButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent, CAMERA_REQUEST);
-            }
-        });
-
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         metallSensor = sensorManager.getSensorList(Sensor.TYPE_MAGNETIC_FIELD).get(0);
     }
@@ -135,56 +134,19 @@ public class metallDetector extends AppCompatActivity implements SensorEventList
         progressBar.setProgress((int) betrag);
     }
 
-    // main part of the camera apps
+    // Format für Logbuch erstellen
+    private void log(String qrCode) {
+        Intent intent = new Intent("ch.appquest.intent.LOG");
 
-    private Bitmap applyFilter(Bitmap bitmap) {
-        int width = bitmap.getWidth();
-        int height = bitmap.getHeight();
-        int[] data = new int[width * height];
-
-        bitmap.getPixels(data, 0, width, 0, 0, width, height);
-
-        for (int x = 0; x < bitmap.getWidth(); x++) {
-            for (int y = 0; y < bitmap.getHeight(); y++) {
-
-                // multiple every pixel with a red one and the amount of green and blue
-
-                int index = y*width+x;
-
-                int p = data[index];
-
-                //get alpha
-                int a = 255;
-
-                //get red
-                int r = (p>>16) & 0xff;
-
-                //get green
-                int g = (p>>8) & 0xff;
-
-                //get blue
-                int b = (p & 0xff);
+        // Achtung, je nach App wird etwas anderes eingetragen
+        String logmessage = (String) qrCode;
 
 
-                p = a<<24 | Color.red(r<<16) | (g<<8)*0 | b*0;
+        String newString = String.format("{\"task\": \"Metalldetektor\", \"solution\": \"" + logmessage + " \"}");
 
+        intent.putExtra("ch.appquest.logmessage", newString);
 
-                //fill in the color into the data array
-
-                data[index] = p;
-            }
-        }
-        //return the new Bitmap
-
-        return Bitmap.createBitmap(data, width, height, Bitmap.Config.ARGB_8888);
-    }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAMERA_REQUEST && resultCode == AppCompatActivity.RESULT_OK) {
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-            Bitmap new_bitmap = applyFilter(bitmap);
-            imageView.setImageBitmap(new_bitmap);
-        }
+        startActivity(intent);
     }
 
 }
