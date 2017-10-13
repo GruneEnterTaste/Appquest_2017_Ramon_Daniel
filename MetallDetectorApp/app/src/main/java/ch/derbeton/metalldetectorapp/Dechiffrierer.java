@@ -135,19 +135,19 @@ public class Dechiffrierer extends AppCompatActivity {
                 int p = data[index];
 
                 //get alpha
-                int a = (p>>24) & 0xff;
+                int a = (p>>24);
 
                 //get red
-                int r = (p>>16) & 0xff;
+                int r = (p>>16) & 0xff0000;
 
                 //get green
-                int g = (p>>8) & 0xff;
+                int g = (p>>8) & 0xff0000;
 
                 //get blue
-                int b = (p & 0xff);
+                int b = (p & 0xff0000);
 
 
-                p = (a<<24) | Color.red((r<<16) | (g<<8) | b);
+                p = (a<<24) | ((r<<16) | (g<<8) | b);
 
 
                 //fill in the color into the data array
