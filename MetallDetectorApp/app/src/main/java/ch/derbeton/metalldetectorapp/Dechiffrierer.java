@@ -86,7 +86,7 @@ public class Dechiffrierer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_dechiffrierer);
+        setContentView(R.layout.activity_dechiffrer);
         //for the camera app
         this.imageView = (ImageView) this.findViewById(R.id.imageView1);
         Button photoButton = (Button) this.findViewById(R.id.button1);
