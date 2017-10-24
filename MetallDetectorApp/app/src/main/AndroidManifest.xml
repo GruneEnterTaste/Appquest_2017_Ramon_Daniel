@@ -29,7 +29,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Dechiffrierer"></activity>
+        <activity android:name=".Dechiffrierer" />
+        <activity android:name=".Memory"></activity>
     </application>
 
 </manifest> <!-- Kommentar mit CTRL + / -->

@@ -81,6 +81,19 @@ public class metallDetector extends AppCompatActivity implements SensorEventList
                 return false;
             }
         }
+        );
+
+        // Verlinken Memory
+
+        menuItem_memory.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+
+                                                       @Override
+                                                       public boolean onMenuItemClick(MenuItem item) {
+                                                           Intent intent = new Intent(metallDetector.this, Memory.class);
+                                                           startActivity(intent);
+                                                           return false;
+                                                       }
+                                                   }
 
         );
 

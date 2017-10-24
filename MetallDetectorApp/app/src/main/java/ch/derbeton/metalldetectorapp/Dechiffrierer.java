@@ -74,6 +74,20 @@ public class Dechiffrierer extends AppCompatActivity {
 
         );
 
+        // Verlinken Memory
+
+        menuItem_memory.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+
+                                                       @Override
+                                                       public boolean onMenuItemClick(MenuItem item) {
+                                                           Intent intent = new Intent(Dechiffrierer.this, Memory.class);
+                                                           startActivity(intent);
+                                                           return false;
+                                                       }
+                                                   }
+
+        );
+
         return super.onCreateOptionsMenu(menu);
     }
 //---------------------------------------------------------------------------------------------------------------------
