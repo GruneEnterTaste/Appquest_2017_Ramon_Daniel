@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.journeyapps.barcodescanner.CaptureActivity;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Memory extends AppCompatActivity {
 
@@ -20,6 +22,7 @@ public class Memory extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
 
     //---------------------------------------------------------------------------------------------------------------------
     // Menu Start
@@ -103,7 +106,7 @@ public class Memory extends AppCompatActivity {
 
 
 
-// Foto aufnehmen / Code auslesen
+    // Foto aufnehmen / Code auslesen
     public void takeQrCodePicture() {
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.setCaptureActivity(MyCaptureActivity.class);
@@ -132,12 +135,9 @@ public class Memory extends AppCompatActivity {
 
     public class MyCaptureActivity extends CaptureActivity { }
 
-    // Recyclerview
-    RecyclerView rv = (RecyclerView)findViewById(R.id.recyclerView);
-    GridLayoutManager gridLayoutManager = new GridLayoutManager(this /* the activity */, 2);
 
-    // funkt noch nicht
-    // rv.LayoutManager(gridLayoutManager);
+
+
 
 
     // Ende
@@ -145,5 +145,9 @@ public class Memory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memory);
+
+        RecyclerView rv = (RecyclerView)findViewById(R.id.recyclerView);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(Memory.this, 2);
+        rv.setLayoutManager(gridLayoutManager);
     }
 }
