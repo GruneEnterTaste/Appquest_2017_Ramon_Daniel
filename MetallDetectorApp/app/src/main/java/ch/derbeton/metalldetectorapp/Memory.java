@@ -128,6 +128,7 @@ public class Memory extends AppCompatActivity {
             // Ein Bitmap zur Darstellung erhalten wir so:
             // Bitmap bmp = BitmapFactory.decodeFile(path)
 
+
             String code = extras.getString(
                     Intents.Scan.RESULT);
         }
@@ -145,9 +146,5 @@ public class Memory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memory);
-
-        RecyclerView rv = (RecyclerView)findViewById(R.id.recyclerView);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(Memory.this, 2);
-        rv.setLayoutManager(gridLayoutManager);
     }
 }
