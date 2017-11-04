@@ -49,7 +49,8 @@
                     android:layout_below="@+id/image_1"
                     android:layout_marginTop="20dp"
                     android:paddingTop="20dp"
-                    android:text="Foto aufnehmen" />
+                    android:text="Foto aufnehmen"
+                    android:onClick="OnClick_button_1_1"/>
 
             </RelativeLayout>
 

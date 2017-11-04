@@ -155,22 +155,31 @@ public class Memory extends AppCompatActivity {
         if (requestCode == IntentIntegrator.REQUEST_CODE
                 && resultCode == RESULT_OK) {
 
+
+
             Bundle extras = data.getExtras();
             String path = extras.getString(
                     Intents.Scan.RESULT_BARCODE_IMAGE_PATH);
 
             // Ein Bitmap zur Darstellung erhalten wir so:
             // Bitmap bmp = BitmapFactory.decodeFile(path);
-            Bitmap bitmap_1 = BitmapFactory.decodeFile(path);
+
 
 
             String code_1 = extras.getString(
                     Intents.Scan.RESULT);
 
-            ImageView image_1 = (ImageView) this.findViewById(R.id.image_1);
 
-            Bitmap new_bitmap = bitmap_1;
-            image_1.setImageBitmap(new_bitmap);
+
+            // Unser Teil der Auswertung
+            //Einfügen des QRCODES
+            TextView info_text_2 = (TextView) findViewById(R.id.info_text_2);
+            info_text_2.setText(code_1);
+            // Einfügen des Bildes
+            ImageView image_2 = (ImageView) this.findViewById(R.id.image_2);
+            image_2.setImageResource(R.mipmap.ic_launcher);
+            //Bitmap bitmap_1 = BitmapFactory.decodeFile(path);
+            //image_2.setImageBitmap(bitmap_1);
 
         }
     }
