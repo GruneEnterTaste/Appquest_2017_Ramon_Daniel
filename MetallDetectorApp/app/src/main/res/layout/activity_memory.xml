@@ -81,7 +81,8 @@
                     android:paddingTop="20dp"
                     android:text="Foto aufnehmen"
                     android:layout_marginTop="20dp"
-                    android:layout_below="@+id/image_2"/>
+                    android:layout_below="@+id/image_2"
+                    android:onClick="OnClick_button_1_2"/>
 
             </RelativeLayout>
 

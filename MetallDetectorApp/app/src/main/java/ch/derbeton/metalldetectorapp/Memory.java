@@ -115,6 +115,7 @@ public class Memory extends AppCompatActivity {
 
 
         Button photo_button_1 = (Button) this.findViewById(R.id.photo_button_1);
+        final ImageView image_1 = (ImageView) this.findViewById(R.id.image_1);
 
         photo_button_1.setOnClickListener(new View.OnClickListener() {
 
@@ -122,6 +123,7 @@ public class Memory extends AppCompatActivity {
             public void onClick(View v) {
                 TextView info_text_1 = (TextView) findViewById(R.id.info_text_1);
                 info_text_1.setText("Wohooo");
+                image_1.setImageResource(R.mipmap.ic_launcher);
 
                 
 
@@ -129,10 +131,14 @@ public class Memory extends AppCompatActivity {
             }
         });
     }
+    public void OnClick_button_1_2 (View view){
+        IntentIntegrator integrator = new IntentIntegrator(this);
+        integrator.initiateScan();
+    }
 
 
     // Foto aufnehmen / Code auslesen
-    public void takeQrCodePicture() {
+    public void takeQRCodePicture() {
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.setCaptureActivity(MyCaptureActivity.class);
         integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
