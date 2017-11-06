@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -119,23 +120,19 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
         one.setOnClickListener(this); // calling onClick() method
         Button two = (Button) findViewById(R.id.photo_button_2);
         two.setOnClickListener(this);
+        Button three = (Button) findViewById(R.id.photo_button_3);
+        three.setOnClickListener(this);
+        Button four = (Button) findViewById(R.id.photo_button_4);
+        four.setOnClickListener(this);
+        Button five = (Button) findViewById(R.id.photo_button_5);
+        five.setOnClickListener(this);
+        Button six = (Button) findViewById(R.id.photo_button_6);
+        six.setOnClickListener(this);
+        Button seven = (Button) findViewById(R.id.photo_button_7);
+        seven.setOnClickListener(this);
+        Button eight = (Button) findViewById(R.id.photo_button_8);
+        eight.setOnClickListener(this);
 
-
-
-
-
-
-        /*Button photo_button_1 = (Button) this.findViewById(R.id.photo_button_1);
-
-        photo_button_1.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                nummerierung = v.getId();
-
-            }
-        }); */
     }
 
     // Listen for Button Clicks
@@ -276,11 +273,6 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
         }
 
     }
-
-    /*public void OnClick_button_1_2 (View view){
-        IntentIntegrator integrator = new IntentIntegrator(this);
-        integrator.initiateScan();
-    }*/
 
 
     // Foto aufnehmen / Code auslesen
