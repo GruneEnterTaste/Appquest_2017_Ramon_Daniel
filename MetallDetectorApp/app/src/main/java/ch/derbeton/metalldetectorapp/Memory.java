@@ -19,12 +19,14 @@ import com.journeyapps.barcodescanner.CaptureActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Memory extends AppCompatActivity {
+public class Memory extends AppCompatActivity implements View.OnClickListener {
 
 
     // for the Logbuch app
     private static final int SCAN_QR_CODE_REQUEST_CODE = 0;
     private RecyclerView mRecyclerView;
+    public String nummerierung;
+    public int resID;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
@@ -113,34 +115,76 @@ public class Memory extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memory);
 
+        Button one = (Button) findViewById(R.id.photo_button_1);
+        one.setOnClickListener(this); // calling onClick() method
+        Button two = (Button) findViewById(R.id.photo_button_2);
+        two.setOnClickListener(this);
 
-        Button photo_button_1 = (Button) this.findViewById(R.id.photo_button_1);
-        final ImageView image_1 = (ImageView) this.findViewById(R.id.image_1);
+
+
+
+
+
+        /*Button photo_button_1 = (Button) this.findViewById(R.id.photo_button_1);
 
         photo_button_1.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                TextView info_text_1 = (TextView) findViewById(R.id.info_text_1);
-                info_text_1.setText("Wohooo");
-                image_1.setImageResource(R.mipmap.ic_launcher);
 
-                
-
+                nummerierung = v.getId();
 
             }
-        });
+        }); */
     }
-    public void OnClick_button_1_2 (View view){
+
+    // Listen for Button Clicks
+
+    @Override
+    public void onClick(View v) {
+        // default method for handling onClick Events..
+
+        switch (v.getId()) {
+
+            case R.id.photo_button_1:
+                // do your code
+
+                takeQrCodePicture();
+
+                nummerierung = "image_1";
+
+                int resID = getResources().getIdentifier(nummerierung, "id", getPackageName());
+
+                break;
+
+            case R.id.photo_button_2:
+                // do your code
+
+                takeQrCodePicture();
+
+                nummerierung = "image_2";
+
+                break;
+
+
+            default:
+
+                break;
+        }
+
+    }
+
+    /*public void OnClick_button_1_2 (View view){
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.initiateScan();
-    }
+    }*/
 
 
     // Foto aufnehmen / Code auslesen
-    public void takeQRCodePicture() {
+    public void takeQrCodePicture() {
+
         IntentIntegrator integrator = new IntentIntegrator(this);
-        integrator.setCaptureActivity(MyCaptureActivity.class);
+        //integrator.setCaptureActivity(MyCaptureActivity.class);
         integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
         integrator.setOrientationLocked(false);
         integrator.addExtra(Intents.Scan.BARCODE_IMAGE_ENABLED, true);
@@ -162,7 +206,8 @@ public class Memory extends AppCompatActivity {
                     Intents.Scan.RESULT_BARCODE_IMAGE_PATH);
 
             // Ein Bitmap zur Darstellung erhalten wir so:
-            // Bitmap bmp = BitmapFactory.decodeFile(path);
+            Bitmap bmp_1 = BitmapFactory.decodeFile(path);
+
 
 
 
@@ -173,11 +218,11 @@ public class Memory extends AppCompatActivity {
 
             // Unser Teil der Auswertung
             //Einfügen des QRCODES
-            TextView info_text_2 = (TextView) findViewById(R.id.info_text_2);
-            info_text_2.setText(code_1);
+            TextView info_text_1 = (TextView) findViewById(R.id.info_text_1);
+            info_text_1.setText(code_1);
             // Einfügen des Bildes
-            ImageView image_2 = (ImageView) this.findViewById(R.id.image_2);
-            image_2.setImageResource(R.mipmap.ic_launcher);
+            ImageView image_1 = (ImageView) this.findViewById(R.id.image_1);
+            image_1.setImageBitmap(bmp_1);
             //Bitmap bitmap_1 = BitmapFactory.decodeFile(path);
             //image_2.setImageBitmap(bitmap_1);
 

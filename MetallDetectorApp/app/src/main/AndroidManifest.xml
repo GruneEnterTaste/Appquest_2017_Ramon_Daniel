@@ -3,7 +3,7 @@
     package="ch.derbeton.metalldetectorapp">
 
     <!-- give the rights for the camera app -->
-    v
+
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
@@ -30,6 +30,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Dechiffrierer" />
+        <activity android:name=".Memory$MyCaptureActivity" />
         <activity android:name=".Memory"></activity>
     </application>
 

@@ -49,8 +49,7 @@
                     android:layout_below="@+id/image_1"
                     android:layout_marginTop="20dp"
                     android:paddingTop="20dp"
-                    android:text="Foto aufnehmen"
-                    android:onClick="OnClick_button_1_1"/>
+                    android:text="Foto aufnehmen" />
 
             </RelativeLayout>
 
@@ -79,11 +78,10 @@
                     android:id="@+id/photo_button_2"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:paddingTop="20dp"
-                    android:text="Foto aufnehmen"
-                    android:layout_marginTop="20dp"
                     android:layout_below="@+id/image_2"
-                    android:onClick="OnClick_button_1_2"/>
+                    android:layout_marginTop="20dp"
+                    android:paddingTop="20dp"
+                    android:text="Foto aufnehmen" />
 
             </RelativeLayout>
 
