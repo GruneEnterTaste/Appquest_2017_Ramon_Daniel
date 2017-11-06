@@ -25,8 +25,8 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
     // for the Logbuch app
     private static final int SCAN_QR_CODE_REQUEST_CODE = 0;
     private RecyclerView mRecyclerView;
-    public String nummerierung;
-    public int resID;
+    public int resID_image;
+    public int resID_text;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
@@ -151,9 +151,13 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
 
                 takeQrCodePicture();
 
-                nummerierung = "image_1";
+                String imageName = "image_1";
 
-                int resID = getResources().getIdentifier(nummerierung, "id", getPackageName());
+                String imageText = "info_text_1";
+
+                resID_image = getResources().getIdentifier(imageName, "id", getPackageName());
+
+                resID_text = getResources().getIdentifier(imageText, "id", getPackageName());
 
                 break;
 
@@ -162,9 +166,108 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
 
                 takeQrCodePicture();
 
-                nummerierung = "image_2";
+                imageName = "image_2";
+
+                imageText = "info_text_2";
+
+                resID_image = getResources().getIdentifier(imageName, "id", getPackageName());
+
+                resID_text = getResources().getIdentifier(imageText, "id", getPackageName());
 
                 break;
+
+            case R.id.photo_button_3:
+                // do your code
+
+                takeQrCodePicture();
+
+                imageName = "image_3";
+
+                imageText = "info_text_3";
+
+                resID_image = getResources().getIdentifier(imageName, "id", getPackageName());
+
+                resID_text = getResources().getIdentifier(imageText, "id", getPackageName());
+
+                break;
+
+            case R.id.photo_button_4:
+                // do your code
+
+                takeQrCodePicture();
+
+                imageName = "image_4";
+
+                imageText = "info_text_4";
+
+                resID_image = getResources().getIdentifier(imageName, "id", getPackageName());
+
+                resID_text = getResources().getIdentifier(imageText, "id", getPackageName());
+
+                break;
+
+            case R.id.photo_button_5:
+                // do your code
+
+                takeQrCodePicture();
+
+                imageName = "image_5";
+
+                imageText = "info_text_5";
+
+                resID_image = getResources().getIdentifier(imageName, "id", getPackageName());
+
+                resID_text = getResources().getIdentifier(imageText, "id", getPackageName());
+
+                break;
+
+            case R.id.photo_button_6:
+                // do your code
+
+                takeQrCodePicture();
+
+                imageName = "image_6";
+
+                imageText = "info_text_6";
+
+                resID_image = getResources().getIdentifier(imageName, "id", getPackageName());
+
+                resID_text = getResources().getIdentifier(imageText, "id", getPackageName());
+
+                break;
+
+
+            case R.id.photo_button_7:
+                // do your code
+
+                takeQrCodePicture();
+
+                imageName = "image_7";
+
+                imageText = "info_text_7";
+
+                resID_image = getResources().getIdentifier(imageName, "id", getPackageName());
+
+                resID_text = getResources().getIdentifier(imageText, "id", getPackageName());
+
+                break;
+
+
+            case R.id.photo_button_8:
+                // do your code
+
+                takeQrCodePicture();
+
+                imageName = "image_8";
+
+                imageText = "info_text_8";
+
+                resID_image = getResources().getIdentifier(imageName, "id", getPackageName());
+
+                resID_text = getResources().getIdentifier(imageText, "id", getPackageName());
+
+                break;
+
 
 
             default:
@@ -200,7 +303,6 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
                 && resultCode == RESULT_OK) {
 
 
-
             Bundle extras = data.getExtras();
             String path = extras.getString(
                     Intents.Scan.RESULT_BARCODE_IMAGE_PATH);
@@ -218,10 +320,10 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
 
             // Unser Teil der Auswertung
             //Einfügen des QRCODES
-            TextView info_text_1 = (TextView) findViewById(R.id.info_text_1);
+            TextView info_text_1 = (TextView) findViewById(resID_text);
             info_text_1.setText(code_1);
             // Einfügen des Bildes
-            ImageView image_1 = (ImageView) this.findViewById(R.id.image_1);
+            ImageView image_1 = (ImageView) findViewById(resID_image);
             image_1.setImageBitmap(bmp_1);
             //Bitmap bitmap_1 = BitmapFactory.decodeFile(path);
             //image_2.setImageBitmap(bitmap_1);
