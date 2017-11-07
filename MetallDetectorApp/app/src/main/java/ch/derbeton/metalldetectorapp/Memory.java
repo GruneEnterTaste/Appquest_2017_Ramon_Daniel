@@ -26,10 +26,21 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
     // for the Logbuch app
     private static final int SCAN_QR_CODE_REQUEST_CODE = 0;
     private RecyclerView mRecyclerView;
-    public int resID_image;
-    public int resID_text;
+    private int resID_image;
+    private int resID_text;
+    private String imageName;
+    private String imageText;
+    private String info_1;
+    private String info_2;
+    private String info_3;
+    private String info_4;
+    private String info_5;
+    private String info_6;
+    private String info_7;
+    private String info_8;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
 
 
     //---------------------------------------------------------------------------------------------------------------------
@@ -49,9 +60,9 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
 
                                                                 @Override
                                                                 public boolean onMenuItemClick(MenuItem item) {
-                                                                    Intent intent_barcode = new Intent("com.google.zxing.client.android.SCAN");
-                                                                    intent_barcode.putExtra("SCAN_MODE", "QR_CODE_MODE");
-                                                                    startActivityForResult(intent_barcode, SCAN_QR_CODE_REQUEST_CODE);
+
+                                                                    log_memory();
+
                                                                     return false;
                                                                 }
                                                             }
@@ -148,9 +159,9 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
 
                 takeQrCodePicture();
 
-                String imageName = "image_1";
+                imageName = "image_1";
 
-                String imageText = "info_text_1";
+                imageText = "info_text_1";
 
                 resID_image = getResources().getIdentifier(imageName, "id", getPackageName());
 
@@ -300,27 +311,105 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
                     Intents.Scan.RESULT_BARCODE_IMAGE_PATH);
 
             // Ein Bitmap zur Darstellung erhalten wir so:
-            Bitmap bmp_1 = BitmapFactory.decodeFile(path);
+            Bitmap bmp = BitmapFactory.decodeFile(path);
 
 
 
 
-            String code_1 = extras.getString(
+            String code = extras.getString(
                     Intents.Scan.RESULT);
+
+            switch(imageText) {
+
+                case "info_text_1":
+
+                    info_1 = code;
+
+                    break;
+
+                case "info_text_2":
+
+                    info_2 = code;
+
+                    break;
+
+                case "info_text_3":
+
+                    info_3 = code;
+
+                    break;
+
+                case "info_text_4":
+
+                    info_4 = code;
+
+                    break;
+
+                case "info_text_5":
+
+                    info_5 = code;
+
+                    break;
+
+                case "info_text_6":
+
+                    info_6 = code;
+
+                    break;
+
+                case "info_text_7":
+
+                    info_7 = code;
+
+                    break;
+
+                case "info_text_8":
+
+                    info_8 = code;
+
+                    break;
+
+                default:
+
+                    break;
+
+            }
 
 
 
             // Unser Teil der Auswertung
             //Einfügen des QRCODES
-            TextView info_text_1 = (TextView) findViewById(resID_text);
-            info_text_1.setText(code_1);
+            TextView info_text = (TextView) findViewById(resID_text);
+            info_text.setText(code);
             // Einfügen des Bildes
-            ImageView image_1 = (ImageView) findViewById(resID_image);
-            image_1.setImageBitmap(bmp_1);
+            ImageView image = (ImageView) findViewById(resID_image);
+            image.setImageBitmap(bmp);
             //Bitmap bitmap_1 = BitmapFactory.decodeFile(path);
             //image_2.setImageBitmap(bitmap_1);
 
         }
+    }
+
+    // Format für Logbuch erstellen
+    private void log_memory() {
+        Intent intent = new Intent("ch.appquest.intent.LOG");
+
+        String[] bildpaar_1 = {info_1, info_2};
+        String[] bildpaar_2 = {info_3, info_4};
+        String[] bildpaar_3 = {info_5, info_6};
+        String[] bildpaar_4 = {info_7, info_8};
+
+        /*
+
+        String newString = String.format("{\"task\": \"Memory\", \"solution\": \"[\"" + bildpaar_1[0] + " \",\"" + bildpaar_1[2] + " \"], \" \"}");
+
+        */
+
+        String newString = String.format("{\"task\": \"Memory\", \"solution\": [[\"" + bildpaar_1[0] + "\", \"" + bildpaar_1[1] + "\"], [\"" + bildpaar_2[0] + "\", \"" + bildpaar_2[1] + "\"], [\"" + bildpaar_3[0] + "\", \"" + bildpaar_3[1] + "\"], [\"" + bildpaar_4[0] + "\", \"" + bildpaar_4[1] + "\"]] }");
+
+        intent.putExtra("ch.appquest.logmessage", newString);
+
+        startActivity(intent);
     }
 
 
