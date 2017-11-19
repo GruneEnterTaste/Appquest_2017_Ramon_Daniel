@@ -1,5 +1,7 @@
 package ch.derbeton.metalldetectorapp;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,6 +19,12 @@ import android.widget.TextView;
 import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.journeyapps.barcodescanner.CaptureActivity;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -156,6 +164,23 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
         seven.setOnClickListener(this);
         Button eight = (Button) findViewById(R.id.photo_button_8);
         eight.setOnClickListener(this);
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        // path to /data/data/yourapp/app_data/imageDir
+        File path = cw.getDir("imageDir", Context.MODE_PRIVATE);
+        loadImageFromStorage(path);
 
     }
 
@@ -326,6 +351,9 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
             // Ein Bitmap zur Darstellung erhalten wir so:
             Bitmap bmp = BitmapFactory.decodeFile(path);
 
+            // Bitmap abspeichern
+            saveToInternalStorage(bmp);
+
 
 
 
@@ -424,8 +452,49 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
 
         startActivity(intent);
     }
+    // BMPs Abspeichern
+    private String saveToInternalStorage(Bitmap bmp){
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        // path to /data/data/yourapp/app_data/imageDir
+        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+        // Create imageDir
+        File mypath=new File(directory,"profile.jpg");
 
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return directory.getAbsolutePath();
+    }
 
-    // Ende
+    // BMPs Ausgeben
+
+    private void loadImageFromStorage(File path)
+    {
+
+        try {
+            File f=new File(path, "profile.jpg");
+            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+            ImageView img=(ImageView)findViewById(R.id.image_1);
+            img.setImageBitmap(b);
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
 
 }
