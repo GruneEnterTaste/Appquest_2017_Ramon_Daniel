@@ -97,6 +97,19 @@ public class metallDetector extends AppCompatActivity implements SensorEventList
 
         );
 
+        // verlinken Schatzkarte
+        menuItem_schatzkarte.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+
+                                                       @Override
+                                                       public boolean onMenuItemClick(MenuItem item) {
+                                                           Intent intent = new Intent(metallDetector.this, Schatzkarte.class);
+                                                           startActivity(intent);
+                                                           return false;
+                                                       }
+                                                   }
+
+        );
+
         return super.onCreateOptionsMenu(menu);
     }
 //---------------------------------------------------------------------------------------------------------------------

@@ -85,6 +85,18 @@ public class Dechiffrierer extends AppCompatActivity {
                                                            return false;
                                                        }
                                                    }
+        );
+
+        // verlinken Schatzkarte
+        menuItem_schatzkarte.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+
+                                                            @Override
+                                                            public boolean onMenuItemClick(MenuItem item) {
+                                                                Intent intent = new Intent(Dechiffrierer.this, Schatzkarte.class);
+                                                                startActivity(intent);
+                                                                return false;
+                                                            }
+                                                        }
 
         );
 

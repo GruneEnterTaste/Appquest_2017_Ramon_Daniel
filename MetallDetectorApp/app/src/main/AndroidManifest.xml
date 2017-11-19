@@ -31,7 +31,8 @@
         </activity>
         <activity android:name=".Dechiffrierer" />
         <activity android:name=".Memory$MyCaptureActivity" />
-        <activity android:name=".Memory"></activity>
+        <activity android:name=".Memory" />
+        <activity android:name=".Schatzkarte"></activity>
     </application>
 
 </manifest> <!-- Kommentar mit CTRL + / -->
