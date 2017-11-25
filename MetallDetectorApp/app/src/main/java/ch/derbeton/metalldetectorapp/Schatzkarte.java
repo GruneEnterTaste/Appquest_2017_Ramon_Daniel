@@ -1,18 +1,54 @@
 package ch.derbeton.metalldetectorapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import org.osmdroid.api.IMapController;
+import org.osmdroid.config.Configuration;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
 
 public class Schatzkarte extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setContentView(R.layout.activity_schatzkarte);
+
+        Context ctx = getApplicationContext();
+        //important! set your user agent to prevent getting banned from the osm servers
+        Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         setContentView(R.layout.activity_schatzkarte);
+
+        MapView map = (MapView) findViewById(R.id.map);
+        map.setTileSource(TileSourceFactory.MAPNIK);
+        //Mit fingen Zoomen aktivieren
+        map.setBuiltInZoomControls(true);
+        map.setMultiTouchControls(true);
+
+
+        // Startpunkt
+        IMapController mapController = map.getController();
+        mapController.setZoom(11);
+        GeoPoint startPoint = new GeoPoint(47.22666, 8.81833);
+        mapController.setCenter(startPoint);
     }
+
+    public void onResume(){
+        super.onResume();
+        //this will refresh the osmdroid configuration on resuming.
+        //if you make changes to the configuration, use
+        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        //Configuration.getInstance().save(this, prefs);
+        Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this));
+    }
+
 
 //---------------------------------------------------------------------------------------------------------------------
 // Menu Start
@@ -21,7 +57,7 @@ public class Schatzkarte extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuItem menuItem_start = menu.add("Home");
-        MenuItem menuItem_logbuch_scanner = menu.add("Logbuch Scanner");
+      //  MenuItem menuItem_logbuch_scanner = menu.add("Logbuch Scanner");
         MenuItem menuItem_dechiffrierer = menu.add("Dechiffrierer");
         MenuItem menuItem_memory = menu.add("Memory");
         MenuItem menuItem_schatzkarte = menu.add("Schatzkarte");

@@ -351,7 +351,7 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
             // Ein Bitmap zur Darstellung erhalten wir so:
             Bitmap bmp = BitmapFactory.decodeFile(path);
 
-            // Bitmap abspeichern
+            // Bitmap Abspeichern
             saveToInternalStorage(bmp);
 
 
@@ -496,5 +496,19 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
 
     }
 
+    private void saveText()
+    {
+
+    }
+
+    private void loadTextFromStorage()
+    {
+
+    }
+
+
+
 
 }
+
+// Sorry für beschissenes Kommentieren / Formatieren
