@@ -2,9 +2,8 @@ package ch.derbeton.metalldetectorapp;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,7 +27,6 @@ public class Dechiffrierer extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuItem menuItem_start = menu.add("Home");
         MenuItem menuItem_logbuch_scanner = menu.add("Logbuch Scanner");
-        MenuItem menuItem_dechiffrierer = menu.add("Dechiffrierer");
         MenuItem menuItem_memory = menu.add("Memory");
         MenuItem menuItem_schatzkarte = menu.add("Schatzkarte");
         MenuItem menuItem_pixelmaler = menu.add("Pixelmaler");
@@ -43,20 +41,6 @@ public class Dechiffrierer extends AppCompatActivity {
                                                                     return false;
                                                                 }
                                                             }
-
-        );
-
-        // Verlinken Dechiffrierer
-
-        menuItem_dechiffrierer.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-
-                                                              @Override
-                                                              public boolean onMenuItemClick(MenuItem item) {
-                                                                  Intent intent = new Intent(Dechiffrierer.this, Dechiffrierer.class);
-                                                                  startActivity(intent);
-                                                                  return false;
-                                                              }
-                                                          }
 
         );
 
@@ -97,6 +81,19 @@ public class Dechiffrierer extends AppCompatActivity {
                                                                 return false;
                                                             }
                                                         }
+
+        );
+
+        // verlinken Pixelmaler
+        menuItem_pixelmaler.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+
+                                                           @Override
+                                                           public boolean onMenuItemClick(MenuItem item) {
+                                                               Intent intent = new Intent(Dechiffrierer.this, Pixelmaler.class);
+                                                               startActivity(intent);
+                                                               return false;
+                                                           }
+                                                       }
 
         );
 

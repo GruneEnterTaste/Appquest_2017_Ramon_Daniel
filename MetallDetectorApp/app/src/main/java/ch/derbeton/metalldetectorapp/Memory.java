@@ -5,10 +5,8 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.ButtonBarLayout;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.journeyapps.barcodescanner.CaptureActivity;
@@ -25,8 +24,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Memory extends AppCompatActivity implements View.OnClickListener {
 
@@ -60,7 +57,6 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
         MenuItem menuItem_start = menu.add("Home");
         MenuItem menuItem_logbuch_scanner = menu.add("Logbuch Scanner");
         MenuItem menuItem_dechiffrierer = menu.add("Dechiffrierer");
-        MenuItem menuItem_memory = menu.add("Memory");
         MenuItem menuItem_schatzkarte = menu.add("Schatzkarte");
         MenuItem menuItem_pixelmaler = menu.add("Pixelmaler");
 
@@ -107,21 +103,6 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
 
         );
 
-
-        // Verlinken Memory
-
-        menuItem_memory.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-
-                                                       @Override
-                                                       public boolean onMenuItemClick(MenuItem item) {
-                                                           Intent intent = new Intent(Memory.this, Memory.class);
-                                                           startActivity(intent);
-                                                           return false;
-                                                       }
-                                                   }
-
-        );
-
         // verlinken Schatzkarte
         menuItem_schatzkarte.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
 
@@ -135,6 +116,18 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
 
         );
 
+        // verlinken Pixelmaler
+        menuItem_pixelmaler.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+
+                                                           @Override
+                                                           public boolean onMenuItemClick(MenuItem item) {
+                                                               Intent intent = new Intent(Memory.this, Pixelmaler.class);
+                                                               startActivity(intent);
+                                                               return false;
+                                                           }
+                                                       }
+
+        );
 
         return super.onCreateOptionsMenu(menu);
     }

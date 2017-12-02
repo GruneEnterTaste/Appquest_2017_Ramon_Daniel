@@ -2,22 +2,16 @@ package ch.derbeton.metalldetectorapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.graphics.Color;
-import org.json.JSONObject;
 
 public class metallDetector extends AppCompatActivity implements SensorEventListener {
 
@@ -36,7 +30,6 @@ public class metallDetector extends AppCompatActivity implements SensorEventList
     // Für die ganzen Einträge werden weitere Activities erstellt
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem menuItem_start = menu.add("Home");
         MenuItem menuItem_logbuch_scanner = menu.add("Logbuch Scanner");
         MenuItem menuItem_dechiffrierer = menu.add("Dechiffrierer");
         MenuItem menuItem_memory = menu.add("Memory");
@@ -70,19 +63,6 @@ public class metallDetector extends AppCompatActivity implements SensorEventList
 
         );
 
-        // Verlinken Start
-
-        menuItem_start.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                Intent intent = new Intent(metallDetector.this, metallDetector.class);
-                startActivity(intent);
-                return false;
-            }
-        }
-        );
-
         // Verlinken Memory
 
         menuItem_memory.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
@@ -107,6 +87,19 @@ public class metallDetector extends AppCompatActivity implements SensorEventList
                                                            return false;
                                                        }
                                                    }
+
+        );
+
+        // verlinken Pixelmaler
+        menuItem_pixelmaler.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+
+                                                           @Override
+                                                           public boolean onMenuItemClick(MenuItem item) {
+                                                               Intent intent = new Intent(metallDetector.this, Pixelmaler.class);
+                                                               startActivity(intent);
+                                                               return false;
+                                                           }
+                                                       }
 
         );
 
