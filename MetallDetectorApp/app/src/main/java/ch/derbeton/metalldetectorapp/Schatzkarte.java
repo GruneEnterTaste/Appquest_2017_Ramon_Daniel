@@ -35,10 +35,11 @@ public class Schatzkarte extends AppCompatActivity {
 
         // Startpunkt
         IMapController mapController = map.getController();
-        mapController.setZoom(15);
+        mapController.setZoom(17);
         GeoPoint startPoint = new GeoPoint(47.22666, 8.81833);
         mapController.setCenter(startPoint);
     }
+
 
     public void onResume(){
         super.onResume();
