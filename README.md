@@ -11,3 +11,6 @@ http://appquest.ch/2017/
 
 If you want to use all of the Gruxald Features, you require the following App:
 https://play.google.com/store/apps/details?id=com.google.zxing.client.android
+
+
+Please Visit: http://shishagemeinde.ch/ to support us
