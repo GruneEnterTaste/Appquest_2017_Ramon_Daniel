@@ -24,6 +24,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Memory extends AppCompatActivity implements View.OnClickListener {
 
@@ -47,7 +48,6 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
     private RecyclerView.LayoutManager mLayoutManager;
 
 
-
     //---------------------------------------------------------------------------------------------------------------------
     // Menu Start
     //---------------------------------------------------------------------------------------------------------------------
@@ -55,7 +55,7 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuItem menuItem_start = menu.add("Home");
-        MenuItem menuItem_logbuch_scanner = menu.add("Logbuch Scanner");
+        MenuItem menuItem_logbuch_scanner = menu.add("Daten ins Logbusch schreiben");
         MenuItem menuItem_dechiffrierer = menu.add("Dechiffrierer");
         MenuItem menuItem_schatzkarte = menu.add("Schatzkarte");
         MenuItem menuItem_pixelmaler = menu.add("Pixelmaler");
@@ -308,7 +308,6 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
                 break;
 
 
-
             default:
 
                 break;
@@ -328,7 +327,8 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
         integrator.initiateScan();
     }
 
-    public class MyCaptureActivity extends CaptureActivity { }
+    public class MyCaptureActivity extends CaptureActivity {
+    }
 
 
     @Override
@@ -348,12 +348,10 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
             saveToInternalStorage(bmp);
 
 
-
-
             String code = extras.getString(
                     Intents.Scan.RESULT);
 
-            switch(imageText) {
+            switch (imageText) {
 
                 case "info_text_1":
 
@@ -410,7 +408,6 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
             }
 
 
-
             // Unser Teil der Auswertung
             //Einfügen des QRCODES
             TextView info_text = (TextView) findViewById(resID_text);
@@ -433,25 +430,62 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
         String[] bildpaar_3 = {info_5, info_6};
         String[] bildpaar_4 = {info_7, info_8};
 
-        /*
+        String Paar1 = "";
+        String Paar2 = "";
+        String Paar3 = "";
+        String Paar4 = "";
 
-        String newString = String.format("{\"task\": \"Memory\", \"solution\": \"[\"" + bildpaar_1[0] + " \",\"" + bildpaar_1[2] + " \"], \" \"}");
 
-        */
+        if (bildpaar_4[0] != null && bildpaar_4[1] != null) {
+            Paar4 = String.format("[\" " + bildpaar_4[0] + " \", \" " + bildpaar_4[1] + " \"]");
+        }
 
-        String newString = String.format("{\"task\": \"Memory\", \"solution\": [[\"" + bildpaar_1[0] + "\", \"" + bildpaar_1[1] + "\"], [\"" + bildpaar_2[0] + "\", \"" + bildpaar_2[1] + "\"], [\"" + bildpaar_3[0] + "\", \"" + bildpaar_3[1] + "\"], [\"" + bildpaar_4[0] + "\", \"" + bildpaar_4[1] + "\"]] }");
+        if (bildpaar_3[0] != null && bildpaar_3[1] != null) {
+            if (Paar4 != "") {
+                Paar3 = String.format("[\" " + bildpaar_3[0] + " \", \" " + bildpaar_3[1] + " \"],");
+            }
+            //Prüft ob Komma am Schluss nötig
+            else {
+                Paar3 = String.format("[\" " + bildpaar_3[0] + " \", \" " + bildpaar_3[1] + " \"]");
+            }
+        }
+
+        if (bildpaar_2[0] != null && bildpaar_2[1] != null) {
+            if (Paar4 != "" || Paar3 != "") {
+                Paar2 = String.format("[\" " + bildpaar_2[0] + " \", \" " + bildpaar_2[1] + " \"],");
+            }
+            //Prüft ob Komma am Schluss nötig
+            else {
+                Paar2 = String.format("[\" " + bildpaar_2[0] + " \", \" " + bildpaar_2[1] + " \"]");
+            }
+        }
+
+        if (bildpaar_1[0] != null && bildpaar_1[1] != null) {
+            if (Paar4 != "" || Paar3 != "" || Paar2 != "") {
+                Paar1 = String.format("[\" " + bildpaar_1[0] + " \", \" " + bildpaar_1[1] + " \"],");
+            }
+            //Prüft ob Komma am Schluss nötig
+            else {
+                Paar1 = String.format("[\" " + bildpaar_1[0] + " \", \" " + bildpaar_1[1] + " \"]");
+            }
+        }
+
+        String content = String.format(Paar1 + Paar2 + Paar3 + Paar4);
+        String newString = String.format("{\"task\": \"Memory\", \"solution\": [" + content + "] }");
+
 
         intent.putExtra("ch.appquest.logmessage", newString);
 
         startActivity(intent);
     }
+
     // BMPs Abspeichern
-    private String saveToInternalStorage(Bitmap bmp){
+    private String saveToInternalStorage(Bitmap bmp) {
         ContextWrapper cw = new ContextWrapper(getApplicationContext());
         // path to /data/data/yourapp/app_data/imageDir
         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
         // Create imageDir
-        File mypath=new File(directory,"profile.jpg");
+        File mypath = new File(directory, "profile.jpg");
 
         FileOutputStream fos = null;
         try {
@@ -463,8 +497,7 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
         } finally {
             try {
                 fos.close();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -473,35 +506,41 @@ public class Memory extends AppCompatActivity implements View.OnClickListener {
 
     // BMPs Ausgeben
 
-    private void loadImageFromStorage(File path)
-    {
+    private void loadImageFromStorage(File path) {
 
         try {
-            File f=new File(path, "profile.jpg");
+            File f = new File(path, "profile.jpg");
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
-            ImageView img=(ImageView)findViewById(R.id.image_1);
+            ImageView img = (ImageView) findViewById(R.id.image_1);
             img.setImageBitmap(b);
-        }
-        catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
     }
 
-    private void saveText()
-    {
+    private String saveText(String string) {
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        // path to /data/data/yourapp/app_data/textDir
+        File directory = cw.getDir("textDir", Context.MODE_PRIVATE);
+        // Create textDir
+        File mypath = new File(directory, "text.txt");
 
+        FileOutputStream fos = null;
+        try (PrintWriter p = new PrintWriter(new FileOutputStream("text.txt", true))) {
+            p.println("Textspeichertest");
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return directory.getAbsolutePath();
     }
 
-    private void loadTextFromStorage()
-    {
-
+    private void loadTextFromStorage() {
     }
-
-
-
-
 }
-
-// Sorry für beschissenes Kommentieren / Formatieren
