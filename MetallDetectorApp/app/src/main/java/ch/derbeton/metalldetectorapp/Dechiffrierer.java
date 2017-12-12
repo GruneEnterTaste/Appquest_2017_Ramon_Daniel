@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 
@@ -17,6 +18,8 @@ public class Dechiffrierer extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
     // for the Logbuch app
     private static final int SCAN_QR_CODE_REQUEST_CODE = 0;
+
+    private String logDechiffriererText;
 
     private ImageView imageView;
     //---------------------------------------------------------------------------------------------------------------------
@@ -124,7 +127,40 @@ public class Dechiffrierer extends AppCompatActivity {
         });
 
 
-    // Make the Log Button to show the input and Submit field
+        // Make the Log Button to show the input and Submit field
+
+        Button btnLogbuchDechiffrierer = (Button) this.findViewById(R.id.btnLogbuchDechiffrierer);
+        final EditText txtLogbuchDechiffrierer = (EditText) this.findViewById(R.id.txtLogbuchDechiffrierer);
+
+        btnLogbuchDechiffrierer.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+                //code to run
+                logDechiffriererText = txtLogbuchDechiffrierer.getText().toString();
+                log(logDechiffriererText);
+
+
+            }
+        });
+    }
+
+    // Logbuch Classe erstellen
+
+    // Format für Logbuch erstellen
+    private void log(String logDechiffriererText) {
+        Intent intent = new Intent("ch.appquest.intent.LOG");
+
+        // Achtung, je nach App wird etwas anderes eingetragen
+        String logmessage = (String) logDechiffriererText;
+
+
+        String newString = String.format("{\"task\": \"Dechiffrierer\", \"solution\": \"" + logmessage + " \"}");
+
+        intent.putExtra("ch.appquest.logmessage", newString);
+
+        startActivity(intent);
+    }
+
 
         /*final Button button = (Button) findViewById(R.id.logVisible);
         button.setOnClickListener(new View.OnClickListener() {
@@ -137,9 +173,6 @@ public class Dechiffrierer extends AppCompatActivity {
                 textInput.setVisibility(View.VISIBLE);
             }
         });*/
-
-
-    }
 
     private Bitmap applyFilter(Bitmap bitmap) {
         int width = bitmap.getWidth();
