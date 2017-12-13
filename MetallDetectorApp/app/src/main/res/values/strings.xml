@@ -2,4 +2,8 @@
     <string name="app_name">MetallDetectorApp</string>
     <string name="textView2">HalloBallo</string>
     <string name="action_settings">GruxaldApp</string>
+    <string name="start_new">New</string>
+    <string name="erase">Erase</string>
+    <string name="save">Save</string>
+    <string name="paint">Paint</string>
 </resources>

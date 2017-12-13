@@ -1,0 +1,81 @@
+<LinearLayout
+    android:id="@+id/LinearLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="7"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageButton
+
+        android:id="@+id/defaultColor"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#FF1364b7"
+        android:contentDescription="@string/paint"
+        android:onClick="paintClicked"
+        android:tag="#FF1364b7" />
+
+    <ImageButton
+        android:id="@+id/color8"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#ff13b717"
+        android:contentDescription="@string/paint"
+        android:onClick="paintClicked"
+        android:tag="#ff13b717" />
+
+    <ImageButton
+        android:id="@+id/color9"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#FFffea00"
+        android:contentDescription="@string/paint"
+        android:onClick="paintClicked"
+        android:tag="#FFffea00" />
+
+    <ImageButton
+        android:id="@+id/color10"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#FFD90505"
+        android:contentDescription="@string/paint"
+        android:onClick="paintClicked"
+        android:tag="#FFD90505" />
+
+
+    <ImageButton
+        android:id="@+id/color11"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#FF000000"
+        android:contentDescription="@string/paint"
+        android:onClick="paintClicked"
+        android:tag="#FF000000" />
+
+
+    <ImageButton
+        android:id="@+id/color12"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#FFB7B7B7"
+        android:contentDescription="@string/paint"
+        android:onClick="paintClicked"
+        android:tag="#FFB7B7B7" />
+
+    <ImageButton
+        android:id="@+id/erase_btn"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:background="@drawable/eraser"
+        android:contentDescription="@string/erase"
+        android:onClick="eraseClicked" />
+
+</LinearLayout>

@@ -6,4 +6,5 @@
     <color name="light_orange">#F01B23</color>
     <color name="dark_blue">#0E5F8F</color>
     <color name="white">#FFFFFF</color>
+    <item name="background" type="color">#FFCCCCCC</item>
 </resources>
