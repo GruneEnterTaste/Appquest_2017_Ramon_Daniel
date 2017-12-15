@@ -2,10 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:weightSum="1">
     <org.osmdroid.views.MapView
         android:id="@+id/map"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:clickable="true"/>
+        android:layout_height="364dp"
+        android:clickable="true" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:text="Momentane Location markieren"
+        android:onClick="ShowLocationActivity"
+        />
+
+    <TextView
+        android:id="@+id/TextView02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/TextView04"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
 </LinearLayout>
