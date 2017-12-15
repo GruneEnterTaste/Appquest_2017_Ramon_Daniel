@@ -4,26 +4,16 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import java.util.*;
 
 public class Pixelmaler extends Activity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pixelmaler);
-        drawingView = findViewById(R.id.drawing);
-
-        currentBrush = findViewById(R.id.defaultColor);
-        currentBrush.setImageDrawable(getResources().getDrawable(R.drawable.selected));
-        String color = currentBrush.getTag().toString();
-        drawingView.setColor(color);
-    }
 
         //---------------------------------------------------------------------------------------------------------------------
     // Menu Start
@@ -116,6 +106,20 @@ public class Pixelmaler extends Activity {
 
     private DrawingView drawingView;
     private ImageButton currentBrush;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_pixelmaler);
+        drawingView = findViewById(R.id.drawing);
+
+        currentBrush = findViewById(R.id.defaultColor);
+        currentBrush.setImageDrawable(getResources().getDrawable(R.drawable.selected));
+        String color = currentBrush.getTag().toString();
+        drawingView.setColor(color);
+    }
+
+
 
     public void eraseClicked(View view) {
         if (view != currentBrush) {

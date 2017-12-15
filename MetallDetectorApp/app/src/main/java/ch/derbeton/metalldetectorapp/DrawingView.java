@@ -15,8 +15,7 @@ import android.graphics.PorterDuffXfermode;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-
-import static java.lang.Math.round;
+import java.util.*;
 
 /**
  * Die DrawingView ist für die Darstellung und Verwaltung der Zeichenfläche
@@ -29,14 +28,21 @@ public class DrawingView extends View {
     private Path drawPath = new Path();
     private Paint drawPaint = new Paint();
     private Paint linePaint = new Paint();
+    private Paint drawRect = new Paint();
     private Paint pathPaint = new Paint();
     private boolean isErasing = false;
     private int stepSizeX;
     private int stepSizeY;
-    private int feldX;
-    private int feldY;
-    private float actionDownX;
-    private float actionDownY;
+
+
+    private ArrayList<Integer> pressedX = new ArrayList<>();
+    private ArrayList<Integer> pressedY = new ArrayList<>();
+
+    private ArrayList<Integer> getdrawX = new ArrayList<>();
+    private ArrayList<Integer> getdrawY = new ArrayList<>();
+
+    private ArrayList<String> pressedColor = new ArrayList<>();
+    private ArrayList<String> pxcolor = new ArrayList<>();
 
     public DrawingView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -45,6 +51,13 @@ public class DrawingView extends View {
         drawPaint.setStyle(Paint.Style.FILL);
         drawPaint.setStrokeJoin(Paint.Join.ROUND);
         drawPaint.setStrokeCap(Paint.Cap.ROUND);
+
+
+        drawRect.setAntiAlias(true);
+        drawRect.setStrokeWidth(20);
+        drawRect.setStyle(Paint.Style.FILL);
+        drawRect.setStrokeJoin(Paint.Join.ROUND);
+        drawRect.setStrokeCap(Paint.Cap.ROUND);
 
         pathPaint.setAntiAlias(true);
         pathPaint.setStrokeWidth(20);
@@ -102,11 +115,22 @@ public class DrawingView extends View {
 
 
         //test ausmalen der Felder
-        canvas.drawRect(feldX * stepSizeX, feldY * stepSizeY,
-                (feldX + 1) * stepSizeX, (feldY + 1) * stepSizeY,
-                drawPaint);
 
-        invalidate();
+        for (int i = 0;i<getdrawX.size();i++){
+
+
+
+                canvas.drawRect(getdrawX.get(i) * stepSizeX, getdrawY.get(i) * stepSizeY,
+                        (getdrawX.get(i) + 1) * stepSizeX, (getdrawY.get(i) + 1) * stepSizeY,
+                        drawPaint);
+
+            //drawPaint.setColor(pxcolor.get(i));
+            drawPaint.setColor(Color.parseColor(pxcolor.get(i)));
+
+
+
+        }
+
 
         // Zeichnet einen Pfad der dem Finger folgt
         canvas.drawPath(drawPath, pathPaint);
@@ -125,10 +149,10 @@ public class DrawingView extends View {
 
                 // TODO wir müssen uns die berührten Punkte zwischenspeichern
 
-                actionDownX = touchX;
-                actionDownY = touchY;
+                pressedX.add((int)touchX);
+                pressedY.add((int)touchY);
 
-
+                pressedColor.add(String.format("#%06X", (0xFFFFFF & drawPaint.getColor())));
 
 
                 break;
@@ -136,6 +160,12 @@ public class DrawingView extends View {
                 drawPath.lineTo(touchX, touchY);
 
                 // TODO wir müssen uns die berührten Punkte zwischenspeichern
+
+                    pressedX.add((int)touchX);
+                    pressedY.add((int)touchY);
+
+                    pressedColor.add(String.format("#%06X", (0xFFFFFF & drawPaint.getColor())));
+
 
                 break;
             case MotionEvent.ACTION_UP:
@@ -145,8 +175,24 @@ public class DrawingView extends View {
                 // true ist (optional)
 
                 // 1. Ausrechnen auf welchem Feld der Finger Ling X/Y
-                feldX = (int)(actionDownX/stepSizeX);
-                feldY = (int)(actionDownY/stepSizeY);
+
+                invalidate();
+
+                for (int i = 0;i<pressedX.size();i++){
+
+                    getdrawX.add(pressedX.get(i)/stepSizeX);
+
+                    getdrawY.add(pressedY.get(i)/stepSizeY);
+
+                    pxcolor.add(pressedColor.get(i));
+
+                    System.out.println(pxcolor.get(i));
+
+                    //System.out.println(pressedX.get(i));
+
+                    //System.out.println(pressedY.get(i));
+
+                }
 
                 // 2. Ausmalen der Felder
 
@@ -160,7 +206,7 @@ public class DrawingView extends View {
 
                 // Ende Mein
 
-                //drawPath.reset();
+                drawPath.reset();
                 break;
             default:
                 return false;
@@ -193,5 +239,6 @@ public class DrawingView extends View {
     public void setColor(String color) {
         invalidate();
         drawPaint.setColor(Color.parseColor(color));
+        pathPaint.setColor(Color.parseColor(color));
     }
 }
