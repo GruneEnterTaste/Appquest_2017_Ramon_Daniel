@@ -23,6 +23,8 @@ import java.util.*;
  */
 public class DrawingView extends View {
 
+
+
     private static final int GRID_SIZE = 13;
 
     private Path drawPath = new Path();
@@ -43,6 +45,8 @@ public class DrawingView extends View {
 
     private ArrayList<String> pressedColor = new ArrayList<>();
     private ArrayList<String> pxcolor = new ArrayList<>();
+
+    private String actColor;
 
     public DrawingView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -118,6 +122,8 @@ public class DrawingView extends View {
 
         for (int i = 0;i<getdrawX.size();i++){
 
+            invalidate();
+
 
 
                 canvas.drawRect(getdrawX.get(i) * stepSizeX, getdrawY.get(i) * stepSizeY,
@@ -164,7 +170,7 @@ public class DrawingView extends View {
                     pressedX.add((int)touchX);
                     pressedY.add((int)touchY);
 
-                    pressedColor.add(String.format("#%06X", (0xFFFFFF & drawPaint.getColor())));
+                    pressedColor.add(actColor);
 
 
                 break;
@@ -175,8 +181,6 @@ public class DrawingView extends View {
                 // true ist (optional)
 
                 // 1. Ausrechnen auf welchem Feld der Finger Ling X/Y
-
-                invalidate();
 
                 for (int i = 0;i<pressedX.size();i++){
 
@@ -227,6 +231,7 @@ public class DrawingView extends View {
         isErasing = isErase;
         if (isErasing) {
             drawPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+            actColor = "#FFFFFF";
         } else {
             drawPaint.setXfermode(null);
         }
@@ -240,5 +245,6 @@ public class DrawingView extends View {
         invalidate();
         drawPaint.setColor(Color.parseColor(color));
         pathPaint.setColor(Color.parseColor(color));
+        actColor = color;
     }
 }
