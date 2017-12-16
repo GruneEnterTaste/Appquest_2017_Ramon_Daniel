@@ -36,6 +36,11 @@ public class DrawingView extends View {
     private int stepSizeX;
     private int stepSizeY;
 
+    private int[] posX = new int[13];
+    private int[] posY = new int[13];
+
+    public String[] logPixel = new String[338];
+
 
     private ArrayList<Integer> pressedX = new ArrayList<>();
     private ArrayList<Integer> pressedY = new ArrayList<>();
@@ -118,21 +123,24 @@ public class DrawingView extends View {
         canvas.drawLine(12*stepSizeX, 0, 12*stepSizeX, canvas.getHeight(), linePaint);
 
 
-        //test ausmalen der Felder
+        if (posX != null) {
 
-        for (int i = 0;i<getdrawX.size();i++){
+            for (int i = 0;i<pressedX.size();i++){
 
-            invalidate();
+                invalidate();
 
 
 
-                canvas.drawRect(getdrawX.get(i) * stepSizeX, getdrawY.get(i) * stepSizeY,
-                        (getdrawX.get(i) + 1) * stepSizeX, (getdrawY.get(i) + 1) * stepSizeY,
+                //drawPaint.setColor(pxcolor.get(i));
+                drawPaint.setColor(Color.parseColor(pxcolor.get(i)));
+
+                canvas.drawRect(pressedX.get(i) * stepSizeX, pressedY.get(i) * stepSizeY,
+                        (pressedX.get(i) + 1) * stepSizeX, (pressedY.get(i) + 1) * stepSizeY,
                         drawPaint);
 
-            //drawPaint.setColor(pxcolor.get(i));
-            drawPaint.setColor(Color.parseColor(pxcolor.get(i)));
 
+
+            }
 
 
         }
@@ -155,10 +163,12 @@ public class DrawingView extends View {
 
                 // TODO wir müssen uns die berührten Punkte zwischenspeichern
 
-                pressedX.add((int)touchX);
-                pressedY.add((int)touchY);
+                pressedX.add((int)(touchX/stepSizeX));
+                pressedY.add((int)(touchY/stepSizeY));
 
                 pressedColor.add(String.format("#%06X", (0xFFFFFF & drawPaint.getColor())));
+
+                pxcolor.add(actColor);
 
 
                 break;
@@ -167,11 +177,10 @@ public class DrawingView extends View {
 
                 // TODO wir müssen uns die berührten Punkte zwischenspeichern
 
-                    pressedX.add((int)touchX);
-                    pressedY.add((int)touchY);
+                pressedX.add((int)(touchX/stepSizeX));
+                pressedY.add((int)(touchY/stepSizeY));
 
-                    pressedColor.add(actColor);
-
+                pxcolor.add(actColor);
 
                 break;
             case MotionEvent.ACTION_UP:
@@ -180,26 +189,40 @@ public class DrawingView extends View {
                 // Gitter umrechnen und zeichnen, bzw. löschen, falls wir isErasing
                 // true ist (optional)
 
-                // 1. Ausrechnen auf welchem Feld der Finger Ling X/Y
+                //Logbuch :(
 
-                for (int i = 0;i<pressedX.size();i++){
+                /*
 
-                    getdrawX.add(pressedX.get(i)/stepSizeX);
+                int k;
 
-                    getdrawY.add(pressedY.get(i)/stepSizeY);
+                for (int i = 0;i<pressedX.size();i++) {
 
-                    pxcolor.add(pressedColor.get(i));
+                    for (int j = 0;j<13; j++) {
 
-                    System.out.println(pxcolor.get(i));
+                        while (j<13) {
 
-                    //System.out.println(pressedX.get(i));
+                            k=0;
 
-                    //System.out.println(pressedY.get(i));
+                            if (pressedX.get(i) == j && pressedY.get(i) == k) {
+                                logPixel[j] = actColor;
+                            }
 
+                        }
+
+                        for (int k = 0;k<13;k++) {
+
+
+
+                        }
+
+                    }
                 }
 
-                // 2. Ausmalen der Felder
+                for (int l = 0;l<338;l++) {
+                    System.out.println(logPixel[l]);
+                }
 
+                //Logbuch ENde */
 
                 // Ausgabe der Feldnummer nur zu testzwecken
                 //System.out.printf("FeldX : %d %n", feldX);

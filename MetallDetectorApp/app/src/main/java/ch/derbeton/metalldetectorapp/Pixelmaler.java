@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import java.util.*;
 
-public class Pixelmaler extends Activity {
+public class Pixelmaler extends AppCompatActivity {
 
         //---------------------------------------------------------------------------------------------------------------------
     // Menu Start
@@ -111,9 +111,13 @@ public class Pixelmaler extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pixelmaler);
-        drawingView = findViewById(R.id.drawing);
+        //drawingView = findViewById(R.id.drawing);
 
-        currentBrush = findViewById(R.id.defaultColor);
+        drawingView = (DrawingView) findViewById(R.id.drawing);
+
+        //currentBrush = findViewById(R.id.defaultColor);
+        currentBrush = (ImageButton) findViewById(R.id.defaultColor);
+
         currentBrush.setImageDrawable(getResources().getDrawable(R.drawable.selected));
         String color = currentBrush.getTag().toString();
         drawingView.setColor(color);
@@ -166,5 +170,18 @@ public class Pixelmaler extends Activity {
 
     private void onLogAction() {
         // TODO
+
+        Intent intent = new Intent("ch.appquest.intent.LOG");
+
+        String wert = "#ffea00FF";
+
+        String logPixelmaler = String.format("{\"task\": \"Pixelmaler\", \"pixels\": [ {\"y\":\"0\",\"x\":\"0\",\"color\":\"" + wert + "\"}, {\"y\":\"0\",\"x\":\"0\",\"color\":\"" + wert + "\"}, {\"y\":\"0\",\"x\":\"0\",\"color\":\"" + wert + "\"}, {\"y\":\"0\",\"x\":\"0\",\"color\":\"" + wert + "\"}, {\"y\":\"0\",\"x\":\"0\",\"color\":\"" + wert + "\"} ] }");
+
+
+        intent.putExtra("ch.appquest.logmessage", logPixelmaler);
+
+        startActivity(intent);
+
+
     }
 }
